@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-#define ROTL(x,k)   (((x) << (k)) | ((x) >> (64 - (k))))
-#define BITS(x,s,n) (((x) >> (64 - (s) - (n))) & ((1 << (n)) - 1))
+#define ROTL(x, k)    (((x) << (k)) | ((x) >> (64 - (k))))
+#define BITS(x, s, n) (((x) >> (64 - (s) - (n))) & ((1 << (n)) - 1))
 
 static uint64_t
 rnd(void)
@@ -33,12 +33,10 @@ main(int argc, char **argv)
     if (!v)
         return 1;
 
-    printf("# pop=%i init=%"PRIu64" round=%zu\n", N, C, R);
-
     for (int i = 0; i < N; i++)
         v[i] = C;
 
-    size_t x = 0;
+    double pc = 100.0 / (N * C);
 
     for (int x = 0; x < 2500; x++) {
         for (size_t k = 0; k < R; k++) {
@@ -59,7 +57,7 @@ main(int argc, char **argv)
             if (v[i] > richer) richer = v[i];
         }
 
-        printf("%i %i %f\n", x, y, (richer * 100.0) / (N * C));
+        printf("%i %i %f\n", x, y, richer * pc);
     }
 
     return 0;
