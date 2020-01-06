@@ -1,4 +1,4 @@
-set terminal svg
+set terminal svg size 800,600
 
 set multiplot layout 2, 1
 set tmargin 5
