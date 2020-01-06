@@ -1,7 +1,7 @@
 CFLAGS=-march=native -O3
 
-make: main.dat plot
-	gnuplot plot > main.svg
+main.svg: main.dat plot
+	gnuplot plot > $@
 
 main.dat: main
-	./main > main.dat
+	./main > $@

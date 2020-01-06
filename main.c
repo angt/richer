@@ -40,13 +40,13 @@ main(int argc, char **argv)
 
     size_t x = 0;
 
-    for (int x = 0; x < 8000; x++) {
+    for (int x = 0; x < 2500; x++) {
         for (size_t k = 0; k < R; k++) {
             uint64_t r = rnd();
             int i = BITS(r, 0, K);
             int j = BITS(r, K, K);
-            int p = BITS(r, 2 * K, 5);
-            uint64_t m = ((v[i] < v[j] ? v[i] : v[j]) * (p + 1)) >> 9;
+            int p = BITS(r, 2 * K, 5) + 1;
+            uint64_t m = ((v[i] < v[j] ? v[i] : v[j]) * p) >> 9;
             v[i] += m;
             v[j] -= m;
         }
@@ -59,7 +59,7 @@ main(int argc, char **argv)
             if (v[i] > richer) richer = v[i];
         }
 
-        printf("%i %i %"PRIu64"\n", x, y, richer);
+        printf("%i %i %f\n", x, y, (richer * 100.0) / (N * C));
     }
 
     return 0;
